@@ -12,6 +12,14 @@ const Register = () => {
     confirmPassword: "",
   });
 
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 7000,
+    pauseOnHover: true,
+    draggable: true,
+    theme: "dark",
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     handleValidation();
@@ -21,13 +29,21 @@ const Register = () => {
     const { username, email, password, confirmPassword } = values;
     if (password !== confirmPassword) {
       toast.error("Passwords do not match!", {
-        position: "bottom-right",
-        autoClose: 7000,
-        pauseOnHover: true,
-        draggable: true,
-        theme: "dark",
+        toastOptions,
       });
+      return false;
+    } else if (username.length < 3) {
+      toast.error("Username must be at least 3 characters long!", {
+        toastOptions,
+      });
+      return false;
+    } else if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long!", {
+        toastOptions,
+      });
+      return false;
     }
+    return true;
   };
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
