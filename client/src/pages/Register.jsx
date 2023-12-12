@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Logo from "../assets/logo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { registerRoute } from "../utils/APIRoutes";
 const Register = () => {
   const [values, setValues] = useState({
     username: "",
@@ -20,31 +22,32 @@ const Register = () => {
     theme: "dark",
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    handleValidation();
-  };
 
+    if (handleValidation()) {
+      const { username, email, password } = values;
+      const { data } = await axios.post(registerRoute, { username, email, password });
+    }
+  };
   const handleValidation = () => {
     const { username, email, password, confirmPassword } = values;
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match!", {
-        toastOptions,
-      });
+      toast.error("Passwords do not match!", toastOptions);
       return false;
     } else if (username.length < 3) {
-      toast.error("Username must be at least 3 characters long!", {
-        toastOptions,
-      });
+      toast.error("Username must be at least 3 characters long!", toastOptions);
       return false;
     } else if (password.length < 6) {
-      toast.error("Password must be at least 6 characters long!", {
-        toastOptions,
-      });
+      toast.error("Password must be at least 6 characters long!", toastOptions);
+      return false;
+    } else if (email === "") {
+      toast.error("Email cannot be empty!", toastOptions);
       return false;
     }
     return true;
   };
+
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
