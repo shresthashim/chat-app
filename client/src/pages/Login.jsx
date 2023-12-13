@@ -17,12 +17,12 @@ const Login = () => {
     draggable: true,
     theme: "dark",
   };
-
   useEffect(() => {
     if (localStorage.getItem("chat-app-user")) {
       navigate("/");
     }
   }, []);
+
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
@@ -51,7 +51,10 @@ const Login = () => {
         toast.error(data.msg, toastOptions);
       }
       if (data.status === true) {
-        localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+        localStorage.setItem(
+          "chat-app-user",
+          JSON.stringify(data.user)
+        );
 
         navigate("/");
       }
@@ -61,23 +64,36 @@ const Login = () => {
   return (
     <>
       <FormContainer>
-        <form action='' onSubmit={(event) => handleSubmit(event)}>
-          <div className='brand'>
-            <img src={Logo} alt='logo' />
-            <h1>snappy</h1>
+        <form action="" onSubmit={(event) => handleSubmit(event)}>
+          <div className="brand">
+            <img src={Logo} alt="logo" />
+            <h1>ChatHub</h1>
           </div>
-          <input type='text' placeholder='Username' name='username' onChange={(e) => handleChange(e)} min='3' />
-          <input type='password' placeholder='Password' name='password' onChange={(e) => handleChange(e)} />
-          <button type='submit'>Log In</button>
+          <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            onChange={(e) => handleChange(e)}
+            min="3"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            autoComplete="current-password"
+            onChange={(e) => handleChange(e)}
+          />
+          <button type="submit">Log In</button>
           <span>
-            Don't have an account ? <Link to='/register'>Register</Link>
+            Don't have an account ? <Link to="/register">Create One.</Link>
           </span>
         </form>
       </FormContainer>
       <ToastContainer />
     </>
   );
-};
+}
+export default Login;
 
 const FormContainer = styled.div`
   height: 100vh;
@@ -147,5 +163,3 @@ const FormContainer = styled.div`
     }
   }
 `;
-
-export default Login;
