@@ -6,15 +6,15 @@ import { BsEmojiSmileFill } from "react-icons/bs";
 
 const EmojiPickerContainer = styled.div`
   position: absolute;
-  top: -420px;
+  top: -370px;
   background-color: #080420;
   box-shadow: 0 5px 10px #9a86f3;
   border-color: #9a86f3;
   padding: 1rem;
   border-radius: 1rem;
-  max-height: 400px;
+  max-height: 350px;
   overflow-y: auto;
-
+  z-index: 1;
   &::-webkit-scrollbar {
     background-color: #080420;
     width: 5px;
