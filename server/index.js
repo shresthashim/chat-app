@@ -18,16 +18,17 @@ mongoose
   });
 
 const app = express();
+const __dirname = path.resolve();
 app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/messages", messagesRoute);
 
-app.use(express.static(path.join(__dirname, "/client/build")));
+app.use(express.static(path.join(__dirname, "/client/dist")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/client/build/index.html"));
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
 const server = app.listen(process.env.PORT, () => {
