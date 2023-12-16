@@ -24,10 +24,12 @@ app.use(express.json());
 app.use("/api/auth", userRoutes);
 app.use("/api/messages", messagesRoute);
 
-app.use(express.static(path.join(__dirname, "/client/dist")));
+const buildPath = path.join(__dirname, "/client/build");
+
+app.use(express.static(buildPath));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+  res.sendFile(path.join(buildPath, "index.html"));
 });
 
 const server = app.listen(process.env.PORT, () => {
