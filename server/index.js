@@ -18,7 +18,6 @@ mongoose
   });
 
 const app = express();
-const __dirname = path.resolve();
 app.use(cors());
 app.use(express.json());
 
