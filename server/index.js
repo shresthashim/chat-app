@@ -31,7 +31,6 @@ const io = socket(server, {
   cors: {
     origin: process.env.ORIGIN,
     credentials: true,
-    methods: ["GET", "POST"],
   },
 });
 
