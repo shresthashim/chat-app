@@ -1,7 +1,7 @@
 
 # ChatHub
 
-ChatHub: A real-time chat app built with MERN stack, deployed on Vercel. Enjoy instant messaging using Socket.IO integration. Connect effortlessly and chat in real-time on ChatHub!
+ChatHub: A real-time chat app built with MERN stack, deployed on Vercel. Enjoy instant messaging using Socket.IO integration. 
 ## Setting Up React Project for ChatHub
 
 STEP 1: Create a new React project using Vite's Template 
