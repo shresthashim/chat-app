@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Robot from "../assets/robot.gif";
+import Cat from "../assets/cat.gif";
 const Welcome = ({ currentUser }) => {
   const [userName, setUserName] = useState("");
   useEffect(() => {
@@ -11,7 +11,7 @@ const Welcome = ({ currentUser }) => {
   }, []);
   return (
     <Container>
-      <img src={Robot} alt='' />
+      <img src={Cat} alt='Cat Image' />
       <h1>
         Welcome, <span>{userName}!</span>
       </h1>
