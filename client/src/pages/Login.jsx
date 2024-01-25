@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
-import Logo from "../assets/logo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginRoute } from "../utils/APIRoutes";
-
+import ChatBubble from "../assets/chat-bubble.png";
 const Login = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState({ username: "", password: "" });
@@ -51,10 +50,7 @@ const Login = () => {
         toast.error(data.msg, toastOptions);
       }
       if (data.status === true) {
-        localStorage.setItem(
-          "chat-app-user",
-          JSON.stringify(data.user)
-        );
+        localStorage.setItem("chat-app-user", JSON.stringify(data.user));
 
         navigate("/");
       }
@@ -64,35 +60,29 @@ const Login = () => {
   return (
     <>
       <FormContainer>
-        <form action="" onSubmit={(event) => handleSubmit(event)}>
-          <div className="brand">
-            <img src={Logo} alt="logo" />
+        <form action='' onSubmit={(event) => handleSubmit(event)}>
+          <div className='brand'>
+            <img src={ChatBubble} alt='Chat Bubble' />
             <h1>ChatHub</h1>
           </div>
+          <input type='text' placeholder='Username' name='username' onChange={(e) => handleChange(e)} min='3' />
           <input
-            type="text"
-            placeholder="Username"
-            name="username"
-            onChange={(e) => handleChange(e)}
-            min="3"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            autoComplete="current-password"
+            type='password'
+            placeholder='Password'
+            name='password'
+            autoComplete='current-password'
             onChange={(e) => handleChange(e)}
           />
-          <button type="submit">Log In</button>
+          <button type='submit'>Log In</button>
           <span>
-            Don't have an account ? <Link to="/register">Create One.</Link>
+            Don't have an account ? <Link to='/register'>Create One.</Link>
           </span>
         </form>
       </FormContainer>
       <ToastContainer />
     </>
   );
-}
+};
 export default Login;
 
 const FormContainer = styled.div`

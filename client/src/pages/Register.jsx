@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import Logo from "../assets/logo.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ChatBubble from "../assets/chat-bubble.png";
 import axios from "axios";
 import { registerRoute } from "../utils/APIRoutes";
 const Register = () => {
@@ -73,7 +73,7 @@ const Register = () => {
       <FormContainer>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className='brand'>
-            <img src={Logo} alt='Logo' />
+            <img src={ChatBubble} alt='Logo' />
             <h1>ChatHub</h1>
           </div>
           <input type='text' placeholder='Username' name='username' onChange={(e) => handleChange(e)} />

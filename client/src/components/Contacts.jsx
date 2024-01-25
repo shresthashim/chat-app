@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Logo from "../assets/logo.svg";
+import ChatBubble from "../assets/chat-bubble.png";
 const Contacts = ({ contacts, changeChat }) => {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
@@ -22,7 +22,7 @@ const Contacts = ({ contacts, changeChat }) => {
       {currentUserImage && currentUserImage && (
         <Container>
           <div className='brand'>
-            <img src={Logo} alt='logo' />
+            <img src={ChatBubble} alt='logo' />
             <h3>ChatHub</h3>
           </div>
           <div className='contacts'>
