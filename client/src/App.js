@@ -28,7 +28,7 @@ const App = () => {
           }}
         >
           <RingLoader
-            speedMultiplier='1'
+       
             color={"#ff9900"}
             loading={loading}
             size={100}
