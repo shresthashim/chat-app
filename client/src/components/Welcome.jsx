@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Cat from "../assets/cat.gif";
-const Welcome = ({ currentUser }) => {
+const Welcome = () => {
   const [userName, setUserName] = useState("");
   useEffect(() => {
     const getUserName = async () => {
@@ -13,9 +13,8 @@ const Welcome = ({ currentUser }) => {
     <Container>
       <img src={Cat} alt='Cat Image' />
       <h1>
-        Welcome, <span>{userName}!</span>
+        Hey, <span>{userName}!</span>
       </h1>
-      <h3>Please select a chat to Start messaging.</h3>
     </Container>
   );
 };
