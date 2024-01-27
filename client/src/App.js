@@ -28,7 +28,6 @@ const App = () => {
           }}
         >
           <RingLoader
-       
             color={"#ff9900"}
             loading={loading}
             size={100}

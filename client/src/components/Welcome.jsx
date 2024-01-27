@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Cat from "../assets/cat.gif";
+import Logout from "./Logout";
 const Welcome = () => {
   const [userName, setUserName] = useState("");
   useEffect(() => {
@@ -11,10 +12,15 @@ const Welcome = () => {
   }, []);
   return (
     <Container>
+      <div className="logout">
+     <h2>Logout</h2> <Logout/>
+     </div>
       <img src={Cat} alt='Cat Image' />
       <h1>
         Hey, <span>{userName}!</span>
+    
       </h1>
+      <h2>Welcome to ChatHub!</h2>
     </Container>
   );
 };
@@ -31,5 +37,14 @@ const Container = styled.div`
   }
   span {
     color: #4e0eff;
+  }
+  .logout{
+    display: flex;
+    margin-left: 60%;
+    align-items: center;
+  }
+  h2{
+    color: white;
+    margin-right: 0.5rem;
   }
 `;
