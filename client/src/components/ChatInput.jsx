@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Picker from "emoji-picker-react";
 import { IoMdSend } from "react-icons/io";
 import { BsEmojiSmileFill } from "react-icons/bs";
-
 const EmojiPickerContainer = styled.div`
   position: absolute;
   top: -370px;
@@ -15,20 +14,8 @@ const EmojiPickerContainer = styled.div`
   max-height: 350px;
   overflow-y: auto;
   z-index: 1;
-  &::-webkit-scrollbar {
-    background-color: #080420;
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #9a86f3;
-  }
-
-  .emoji-categories {
-    button {
-      filter: contrast(0);
-    }
-  }
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #9a86f3 #080420; /* Firefox */
 `;
 
 const Container = styled.div`
@@ -69,7 +56,7 @@ const Container = styled.div`
     background-color: #ffffff34;
 
     input {
-      width: 90%;
+      flex: 1;
       height: 60%;
       background-color: transparent;
       color: white;
@@ -114,7 +101,6 @@ const Container = styled.div`
 const ChatInput = ({ handleSendMsg }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState("");
-  const emojiPickerRef = useRef(null);
 
   const handleEmojiPickerHideShow = () => {
     setShowEmojiPicker(!showEmojiPicker);
@@ -122,36 +108,21 @@ const ChatInput = ({ handleSendMsg }) => {
 
   const handleEmojiClick = (emojiObject) => {
     const { emoji } = emojiObject;
-    let message = msg;
-    message += emoji;
-    setMsg(message);
+    setMsg((prevMsg) => prevMsg + emoji);
   };
 
   const sendChat = (e) => {
     e.preventDefault();
-    if (msg.length > 0) {
-      handleSendMsg(msg);
+    if (msg.trim().length > 0) {
+      handleSendMsg(msg.trim());
       setMsg("");
     }
   };
 
-  const handleOutsideClick = (e) => {
-    if (emojiPickerRef.current && !emojiPickerRef.current.contains(e.target)) {
-      setShowEmojiPicker(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", handleOutsideClick);
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, []);
-
   return (
     <Container>
       <div className='button-container'>
-        <div className='emoji' ref={emojiPickerRef}>
+        <div className='emoji'>
           <BsEmojiSmileFill onClick={handleEmojiPickerHideShow} />
           {showEmojiPicker && (
             <EmojiPickerContainer>

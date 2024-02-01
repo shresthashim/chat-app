@@ -62,7 +62,7 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
-  background-color: #080420;
+  background-color: #131324; /* Updated background color */
   .brand {
     display: flex;
     align-items: center;
@@ -72,7 +72,7 @@ const Container = styled.div`
       height: 2rem;
     }
     h3 {
-      color: white;
+      color: #ffffff; /* Updated text color */
       text-transform: uppercase;
     }
   }
@@ -91,7 +91,7 @@ const Container = styled.div`
       }
     }
     .contact {
-      background-color: #ffffff34;
+      background-color: #1e1e3f; /* Updated background color */
       min-height: 5rem;
       cursor: pointer;
       width: 90%;
@@ -108,17 +108,17 @@ const Container = styled.div`
       }
       .username {
         h3 {
-          color: white;
+          color: #ffffff;
         }
       }
     }
     .selected {
-      background-color: #9a86f3;
+      background-color: #4e0eff; /* Updated background color for selected item */
     }
   }
 
   .current-user {
-    background-color: #0d0d30;
+    background-color: #1a1a33; /* Updated background color */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -131,7 +131,7 @@ const Container = styled.div`
     }
     .username {
       h2 {
-        color: white;
+        color: #ffffff;
       }
     }
     @media screen and (min-width: 720px) and (max-width: 1080px) {

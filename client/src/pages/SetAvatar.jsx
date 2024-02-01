@@ -104,14 +104,13 @@ const SetAvatar = () => {
 };
 
 export default SetAvatar;
-
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   gap: 3rem;
-  background-color: #131324;
+  background: linear-gradient(45deg, #4e0eff, #997af0); /* Updated background color */
   height: 100vh;
   width: 100vw;
 
@@ -122,8 +121,11 @@ const Container = styled.div`
   .title-container {
     h1 {
       color: white;
+      font-size: 2rem; /* Adjust font size as needed */
+      font-weight: bold;
     }
   }
+
   .avatars {
     display: flex;
     gap: 2rem;
@@ -139,12 +141,15 @@ const Container = styled.div`
       img {
         height: 6rem;
         transition: 0.5s ease-in-out;
+        border-radius: 5rem; /* Add border radius to the avatar image */
       }
     }
+
     .selected {
       border: 0.4rem solid #4e0eff;
     }
   }
+
   .submit-btn {
     background-color: #4e0eff;
     color: white;
@@ -156,7 +161,7 @@ const Container = styled.div`
     font-size: 1rem;
     text-transform: uppercase;
     &:hover {
-      background-color: #4e0eff;
+      background-color: #997af0;
     }
   }
 `;

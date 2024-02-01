@@ -9,7 +9,7 @@ import ChatContainer from "../components/ChatContainer";
 import io from "socket.io-client";
 
 const Chat = () => {
-  const socket = useRef()
+  const socket = useRef();
   const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -30,14 +30,12 @@ const Chat = () => {
     fetchData();
   }, [navigate]);
 
-
-useEffect(()=>{
-  if(currentUser){
-    socket.current = io(host);
-    socket.current.emit("add-user", currentUser._id)
-  }
-
-},[currentUser])
+  useEffect(() => {
+    if (currentUser) {
+      socket.current = io(host);
+      socket.current.emit("add-user", currentUser._id);
+    }
+  }, [currentUser]);
 
   useEffect(() => {
     const fetchContacts = async () => {
@@ -64,14 +62,17 @@ useEffect(()=>{
     <Container>
       <div className='container'>
         <Contacts contacts={contacts} currentUser={currentUser} changeChat={handleChatChange} />
-        {isLoaded && currentChat === undefined ? <Welcome currentUser={currentUser} /> : <ChatContainer currentChat = {currentChat} currentUser= {currentUser} socket ={socket} />}
+        {isLoaded && currentChat === undefined ? (
+          <Welcome currentUser={currentUser} />
+        ) : (
+          <ChatContainer currentChat={currentChat} currentUser={currentUser} socket={socket} />
+        )}
       </div>
     </Container>
   );
 };
 
 export default Chat;
-
 const Container = styled.div`
   height: 100vh;
   width: 100vw;
@@ -80,13 +81,18 @@ const Container = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #131324;
+  background: linear-gradient(45deg, #4e0eff, #997af0); /* Updated background color */
+
   .container {
     height: 85vh;
     width: 85vw;
     background-color: #00000076;
     display: grid;
     grid-template-columns: 25% 75%;
+    gap: 1rem; /* Added gap between columns */
+    padding: 1rem; /* Added padding to the container */
+    border-radius: 1rem; /* Added border radius to the container */
+
     @media screen and (min-width: 720px) and (max-width: 1080px) {
       grid-template-columns: 35% 65%;
     }

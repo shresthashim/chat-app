@@ -84,7 +84,6 @@ const Login = () => {
   );
 };
 export default Login;
-
 const FormContainer = styled.div`
   height: 100vh;
   width: 100vw;
@@ -93,7 +92,8 @@ const FormContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #131324;
+  background: linear-gradient(45deg, #4e0eff, #997af0);
+
   .brand {
     display: flex;
     align-items: center;
@@ -105,6 +105,7 @@ const FormContainer = styled.div`
     h1 {
       color: white;
       text-transform: uppercase;
+      
     }
   }
 
@@ -116,8 +117,9 @@ const FormContainer = styled.div`
     border-radius: 2rem;
     padding: 5rem;
   }
+
   input {
-    background-color: transparent;
+    background: rgba(255, 255, 255, 0.1);
     padding: 1rem;
     border: 0.1rem solid #4e0eff;
     border-radius: 0.4rem;
@@ -130,7 +132,7 @@ const FormContainer = styled.div`
     }
   }
   button {
-    background-color: #4e0eff;
+    background: #4e0eff;
     color: white;
     padding: 1rem 2rem;
     border: none;
@@ -140,16 +142,21 @@ const FormContainer = styled.div`
     font-size: 1rem;
     text-transform: uppercase;
     &:hover {
-      background-color: #4e0eff;
+      background-color: #997af0;
     }
   }
+  
   span {
     color: white;
     text-transform: uppercase;
+    font-size: 1rem;
     a {
       color: #4e0eff;
       text-decoration: none;
       font-weight: bold;
+      &:hover {
+        color: #997af0;
+      }
     }
   }
 `;
