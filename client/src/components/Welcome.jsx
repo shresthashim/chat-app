@@ -21,6 +21,7 @@ const Welcome = () => {
     
       </h1>
       <h2>Welcome to ChatHub!</h2>
+      <h4>Start Messaging with your friends!</h4>
     </Container>
   );
 };
@@ -46,5 +47,11 @@ const Container = styled.div`
   h2{
     color: white;
     margin-right: 0.5rem;
+    margin-top:1rem;
+  }
+  h4{
+    margin-top: 0.5rem;
+    color : gray;
+    font-size: 1.5rem;
   }
 `;
