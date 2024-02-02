@@ -110,7 +110,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 3rem;
-  background: linear-gradient(45deg, #4e0eff, #997af0); /* Updated background color */
+  background: linear-gradient(45deg, #4e0eff, #997af0); 
   height: 100vh;
   width: 100vw;
 
@@ -121,7 +121,7 @@ const Container = styled.div`
   .title-container {
     h1 {
       color: white;
-      font-size: 2rem; /* Adjust font size as needed */
+      font-size: 2rem; 
       font-weight: bold;
     }
   }
@@ -141,7 +141,7 @@ const Container = styled.div`
       img {
         height: 6rem;
         transition: 0.5s ease-in-out;
-        border-radius: 5rem; /* Add border radius to the avatar image */
+        border-radius: 5rem; 
       }
     }
 

@@ -62,7 +62,7 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
-  background-color: #131324; /* Updated background color */
+  background-color: #131324;
   .brand {
     display: flex;
     align-items: center;
@@ -72,7 +72,7 @@ const Container = styled.div`
       height: 2rem;
     }
     h3 {
-      color: #ffffff; /* Updated text color */
+      color: #ffffff; 
       text-transform: uppercase;
     }
   }
@@ -91,7 +91,7 @@ const Container = styled.div`
       }
     }
     .contact {
-      background-color: #1e1e3f; /* Updated background color */
+      background-color: #1e1e3f; 
       min-height: 5rem;
       cursor: pointer;
       width: 90%;
@@ -113,12 +113,12 @@ const Container = styled.div`
       }
     }
     .selected {
-      background-color: #4e0eff; /* Updated background color for selected item */
+      background-color: #4e0eff; 
     }
   }
 
   .current-user {
-    background-color: #1a1a33; /* Updated background color */
+    background-color: #1a1a33; 
     display: flex;
     justify-content: center;
     align-items: center;

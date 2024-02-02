@@ -122,8 +122,7 @@ const Container = styled.div`
       .username {
         h3 {
           color: white;
-          font-size: 1.5rem; /* Adjust font size as needed */
-        }
+          font-size: 1.5rem; 
       }
     }
   }

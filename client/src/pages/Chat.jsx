@@ -81,7 +81,7 @@ const Container = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background: linear-gradient(45deg, #4e0eff, #997af0); /* Updated background color */
+  background: linear-gradient(45deg, #4e0eff, #997af0); 
 
   .container {
     height: 85vh;
@@ -89,9 +89,9 @@ const Container = styled.div`
     background-color: #00000076;
     display: grid;
     grid-template-columns: 25% 75%;
-    gap: 1rem; /* Added gap between columns */
-    padding: 1rem; /* Added padding to the container */
-    border-radius: 1rem; /* Added border radius to the container */
+    gap: 1rem; 
+    padding: 1rem; 
+    border-radius: 1rem; 
 
     @media screen and (min-width: 720px) and (max-width: 1080px) {
       grid-template-columns: 35% 65%;

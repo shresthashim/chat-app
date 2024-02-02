@@ -14,8 +14,8 @@ const EmojiPickerContainer = styled.div`
   max-height: 350px;
   overflow-y: auto;
   z-index: 1;
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #9a86f3 #080420; /* Firefox */
+  scrollbar-width: thin; 
+  scrollbar-color: #9a86f3 #080420; 
 `;
 
 const Container = styled.div`
