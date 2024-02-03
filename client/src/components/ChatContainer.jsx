@@ -107,7 +107,16 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
-    
+    position: relative;
+    &:before {
+      content: "";
+      position: absolute;
+      height: 70vh ;
+      width: 2px;
+      background-color: #ffffff39; /* Adjust color as needed */
+      left: 0;
+      top: 0;
+    }
     .user-details {
       display: flex;
       align-items: center;
@@ -122,7 +131,8 @@ const Container = styled.div`
       .username {
         h3 {
           color: white;
-          font-size: 1.5rem; 
+          font-size: 1.5rem; /* Adjust font size as needed */
+        }
       }
     }
   }
@@ -166,7 +176,7 @@ const Container = styled.div`
       justify-content: flex-end;
       
       .content {
-        background-color: blue;
+        background-color: #2922FD;
       }
     }
     
@@ -174,7 +184,7 @@ const Container = styled.div`
       justify-content: flex-start;
       
       .content {
-        background-color: #9900ff20;
+        background-color: #2922FD;
       }
     }
   }

@@ -75,7 +75,10 @@ const Login = () => {
           />
           <button type='submit'>Log In</button>
           <span>
-            Don't have an account ? <Link to='/register'>Create One.</Link>
+            New Here?
+            <Link to='/register' style={{ marginLeft: "6px" }}>
+              Create One.
+            </Link>
           </span>
         </form>
       </FormContainer>
@@ -105,7 +108,6 @@ const FormContainer = styled.div`
     h1 {
       color: white;
       text-transform: uppercase;
-      
     }
   }
 
@@ -145,11 +147,14 @@ const FormContainer = styled.div`
       background-color: #997af0;
     }
   }
-  
+
   span {
     color: white;
     text-transform: uppercase;
     font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     a {
       color: #4e0eff;
       text-decoration: none;

@@ -12,13 +12,12 @@ const Welcome = () => {
   }, []);
   return (
     <Container>
-      <div className="logout">
-     <h2>Logout</h2> <Logout/>
-     </div>
+      <div className='logout'>
+        <h2>Logout</h2> <Logout />
+      </div>
       <img src={Cat} alt='Cat Image' />
       <h1>
         Hey, <span>{userName}!</span>
-    
       </h1>
       <h2>Welcome to ChatHub!</h2>
       <h4>Start Messaging with your friends!</h4>
@@ -39,19 +38,25 @@ const Container = styled.div`
   span {
     color: #4e0eff;
   }
-  .logout{
+  .logout {
     display: flex;
-    margin-left: 60%;
     align-items: center;
+    margin-left: 60%;
+    margin-bottom: 5rem;
   }
-  h2{
+  .logout h2{
+    margin : 0 auto;
+    margin-right: 0.5rem;
+    
+  }
+  h2 {
     color: white;
     margin-right: 0.5rem;
-    margin-top:1rem;
+    margin-top: 1rem;
   }
-  h4{
+  h4 {
     margin-top: 0.5rem;
-    color : gray;
+    color: gray;
     font-size: 1.5rem;
   }
 `;

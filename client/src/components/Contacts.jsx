@@ -62,7 +62,7 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
-  background-color: #131324;
+  background-color:# ;
   .brand {
     display: flex;
     align-items: center;
@@ -91,11 +91,11 @@ const Container = styled.div`
       }
     }
     .contact {
-      background-color: #1e1e3f; 
+      background-color: #3E3BA8 ; 
       min-height: 5rem;
       cursor: pointer;
       width: 90%;
-      border-radius: 0.2rem;
+      border-radius: 0 2rem 2rem 0;
       padding: 0.4rem;
       display: flex;
       gap: 1rem;
@@ -118,7 +118,7 @@ const Container = styled.div`
   }
 
   .current-user {
-    background-color: #1a1a33; 
+    background-color: #292079; 
     display: flex;
     justify-content: center;
     align-items: center;

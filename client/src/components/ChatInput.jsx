@@ -22,7 +22,7 @@ const Container = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: 5% 95%;
-  background-color: #080420;
+  background-color: transparent;
   padding: 0 2rem;
 
   @media screen and (min-width: 720px) and (max-width: 1080px) {
@@ -95,6 +95,13 @@ const Container = styled.div`
         color: white;
       }
     }
+  }
+
+  .submit{
+    cursor: pointer;
+    background-color: #4e0eff;
+    color: white;
+
   }
 `;
 
