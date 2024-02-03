@@ -24,16 +24,10 @@ const App = () => {
             alignItems: "center",
             justifyContent: "center",
             height: "100vh",
-            backgroundColor: "#131324",
+            background: "linear-gradient(45deg, #4e0eff, #997af0)",
           }}
         >
-          <RingLoader
-            color={"#ff9900"}
-            loading={loading}
-            size={100}
-            aria-label='Loading Spinner'
-            data-testid='loader'
-          />
+          <RingLoader color={"#ff9900"} loading={loading} size={100} aria-label='Loading Spinner' data-testid='loader' />
         </div>
       ) : (
         <BrowserRouter>
