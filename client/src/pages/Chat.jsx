@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { allUsersRoute, host } from "../utils/APIRoutes";
-import Contacts from "../components/Contacts";
+import UsersList from "../components/UsersList";
 import Welcome from "../components/Welcome";
 import ChatContainer from "../components/ChatContainer";
 import io from "socket.io-client";
@@ -61,7 +61,7 @@ const Chat = () => {
   return (
     <Container>
       <div className='container'>
-        <Contacts contacts={contacts} currentUser={currentUser} changeChat={handleChatChange} />
+        <UsersList contacts={contacts} currentUser={currentUser} changeChat={handleChatChange} />
         {isLoaded && currentChat === undefined ? (
           <Welcome currentUser={currentUser} />
         ) : (

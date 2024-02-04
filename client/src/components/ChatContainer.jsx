@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Logout from "./Logout";
-import ChatInput from "./ChatInput";
+import InputField from "./InputField";
 import axios from "axios";
 import {v4 as uuidv4} from "uuid"
 import { getAllMessagesRoute, sendMessageRoute } from "../utils/APIRoutes";
@@ -83,7 +83,7 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
               );
             })}
           </div>
-          <ChatInput handleSendMsg={handleSendMsg} />
+          <InputField handleSendMsg={handleSendMsg} />
         </Container>
       )}
     </>

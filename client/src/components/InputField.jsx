@@ -105,7 +105,7 @@ const Container = styled.div`
   }
 `;
 
-const ChatInput = ({ handleSendMsg }) => {
+const InputField = ({ handleSendMsg }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [msg, setMsg] = useState("");
 
@@ -148,4 +148,4 @@ const ChatInput = ({ handleSendMsg }) => {
   );
 };
 
-export default ChatInput;
+export default InputField;

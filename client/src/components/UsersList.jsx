@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import ChatBubble from "../assets/chat-bubble.png";
-const Contacts = ({ contacts, changeChat }) => {
+const UsersList = ({ contacts, changeChat }) => {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
@@ -56,7 +56,7 @@ const Contacts = ({ contacts, changeChat }) => {
     </>
   );
 };
-export default Contacts;
+export default UsersList;
 
 const Container = styled.div`
   display: grid;
