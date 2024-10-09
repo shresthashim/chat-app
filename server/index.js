@@ -8,6 +8,8 @@ const path = require("path");
 
 require("dotenv").config();
 
+const __dirname = path.resolve();
+
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
@@ -24,9 +26,9 @@ app.use(express.json());
 app.use("/api/auth", userRoutes);
 app.use("/api/messages", messagesRoute);
 
-app.use(express.static(path.join(__dirname, '/client/dist')));
+app.use(express.static(path.join(__dirname, "/client/dist")));
 
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html')));
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, "client", "dist", "index.html")));
 
 const server = app.listen(process.env.PORT, () => {
   console.log(`Server is running on port: ${process.env.PORT}`);
@@ -38,7 +40,6 @@ const io = socket(server, {
     credentials: true,
   },
 });
-
 
 global.onlineUsers = new Map();
 
