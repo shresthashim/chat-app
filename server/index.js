@@ -32,11 +32,11 @@ app.use("/api/auth", userRoutes);
 app.use("/api/messages", messagesRoute); // Assuming `messagesRoute` is properly imported
 
 // Serve static files from the client build
-app.use(express.static(path.join(__dirname, "client", "dist")));
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 // Handle all other GET requests and serve the index.html
 app.get("*", (req, res) =>
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"))
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"))
 );
 
 // Start the server
