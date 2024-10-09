@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoutes");
 const messagesRoute = require("./routes/messagesRoutes");
 const socket = require("socket.io");
+const path = require("path");
 
 require("dotenv").config();
 
