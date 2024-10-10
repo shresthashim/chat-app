@@ -5,7 +5,7 @@ import userRoutes from "./routes/userRoutes.js";
 import messagesRoute from "./routes/messagesRoutes.js";
 import { Server as socketIO } from "socket.io";
 import path from "path";
-import dotenv from "dotenv"; 
+import dotenv from "dotenv";
 
 // Load environment variables
 dotenv.config();
@@ -35,9 +35,7 @@ app.use("/api/messages", messagesRoute); // Assuming `messagesRoute` is properly
 app.use(express.static(path.join(__dirname, "client", "build")));
 
 // Handle all other GET requests and serve the index.html
-app.get("*", (req, res) =>
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"))
-);
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, "client", "build", "index.html")));
 
 // Start the server
 const server = app.listen(process.env.PORT, () => {
@@ -47,26 +45,29 @@ const server = app.listen(process.env.PORT, () => {
 // Set up Socket.IO
 const io = new socketIO(server, {
   cors: {
-    origin: process.env.ORIGIN,
+    origin: "*",
     credentials: true,
   },
 });
 
 global.onlineUsers = new Map();
-
 io.on("connection", (socket) => {
-  global.chatSocket = socket;
+  console.log(`New client connected: ${socket.id}`);
 
-  // Listen for new user additions
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
+    console.log(`User added with ID: ${userId}, Socket ID: ${socket.id}`);
   });
 
-  // Listen for incoming messages
   socket.on("send-msg", (data) => {
     const sendUserSocket = onlineUsers.get(data.to);
     if (sendUserSocket) {
+      console.log(`Sending message from ${data.from} to ${data.to}`);
       socket.to(sendUserSocket).emit("msg-receive", data.message);
     }
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`Client disconnected: ${socket.id}`);
   });
 });
