@@ -45,11 +45,12 @@ const server = app.listen(process.env.PORT, () => {
 // Set up Socket.IO
 const io = new socketIO(server, {
   cors: {
-    origin: "*",
+    origin: "*",  // Allow all origins for testing purposes (you can limit this to your frontend URL)
+    methods: ["GET", "POST"],  // Allow specific HTTP methods
     credentials: true,
   },
+  transports: ["websocket", "polling"],  // Explicitly enable both transports
 });
-
 global.onlineUsers = new Map();
 io.on("connection", (socket) => {
   console.log(`New client connected: ${socket.id}`);
