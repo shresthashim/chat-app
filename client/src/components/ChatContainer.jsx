@@ -43,21 +43,20 @@ const ChatContainer = ({ currentChat, currentUser, socket }) => {
 
   useEffect(() => {
     if (socket.current) {
-      socket.current.off("msg-receive"); // Remove any previous listeners
       socket.current.on("msg-receive", (msg) => {
         setArrivalMessage({ fromSelf: false, message: msg });
       });
     }
     return () => {
-      if (socket.current) socket.current.off("msg-receive"); // Clean up the listener on component unmount
+      if (socket.current) socket.current.off("msg-receive"); // Clean up listener on component unmount
     };
-  }, [currentChat]);
+  }, [socket]);  // Add socket to the dependency array
 
   useEffect(() => {
-    if (arrivalMessage && currentChat && arrivalMessage.from === currentChat._id) {
+    if (arrivalMessage) {
       setMessages((prev) => [...prev, arrivalMessage]);
     }
-  }, [arrivalMessage, currentChat]);
+  }, [arrivalMessage]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });

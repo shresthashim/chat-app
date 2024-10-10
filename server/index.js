@@ -5,7 +5,7 @@ import userRoutes from "./routes/userRoutes.js";
 import messagesRoute from "./routes/messagesRoutes.js";
 import { Server as socketIO } from "socket.io";
 import path from "path";
-import dotenv from "dotenv";
+import dotenv from "dotenv"; 
 
 // Load environment variables
 dotenv.config();
@@ -35,7 +35,9 @@ app.use("/api/messages", messagesRoute); // Assuming `messagesRoute` is properly
 app.use(express.static(path.join(__dirname, "client", "build")));
 
 // Handle all other GET requests and serve the index.html
-app.get("*", (req, res) => res.sendFile(path.join(__dirname, "client", "build", "index.html")));
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"))
+);
 
 // Start the server
 const server = app.listen(process.env.PORT, () => {
@@ -45,30 +47,33 @@ const server = app.listen(process.env.PORT, () => {
 // Set up Socket.IO
 const io = new socketIO(server, {
   cors: {
-    origin: "*",  // Allow all origins for testing purposes (you can limit this to your frontend URL)
-    methods: ["GET", "POST"],  // Allow specific HTTP methods
+    origin: "*",  // Allow all origins for testing, change this in production
     credentials: true,
   },
-  transports: ["websocket", "polling"],  // Explicitly enable both transports
 });
-global.onlineUsers = new Map();
-io.on("connection", (socket) => {
-  console.log(`New client connected: ${socket.id}`);
 
+global.onlineUsers = new Map();
+
+io.on("connection", (socket) => {
+  console.log("User connected: ", socket.id);
+  
+  // Listen for new user additions
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
-    console.log(`User added with ID: ${userId}, Socket ID: ${socket.id}`);
+    console.log(`User added: ${userId}`);
   });
 
+  // Listen for incoming messages
   socket.on("send-msg", (data) => {
     const sendUserSocket = onlineUsers.get(data.to);
     if (sendUserSocket) {
-      console.log(`Sending message from ${data.from} to ${data.to}`);
       socket.to(sendUserSocket).emit("msg-receive", data.message);
     }
   });
 
+  // Handle user disconnection
   socket.on("disconnect", () => {
-    console.log(`Client disconnected: ${socket.id}`);
+    onlineUsers.delete(socket.id);
+    console.log("User disconnected: ", socket.id);
   });
 });
