@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginRoute } from "../utils/APIRoutes";
 import ChatBubble from "../assets/chat-bubble.png";
+
 const Login = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState({ username: "", password: "" });
@@ -16,6 +17,7 @@ const Login = () => {
     draggable: true,
     theme: "dark",
   };
+
   useEffect(() => {
     if (localStorage.getItem("chat-app-user")) {
       navigate("/");
@@ -51,7 +53,6 @@ const Login = () => {
       }
       if (data.status === true) {
         localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-
         navigate("/");
       }
     }
@@ -86,7 +87,9 @@ const Login = () => {
     </>
   );
 };
+
 export default Login;
+
 const FormContainer = styled.div`
   height: 100vh;
   width: 100vw;
@@ -118,6 +121,8 @@ const FormContainer = styled.div`
     background-color: #00000076;
     border-radius: 2rem;
     padding: 5rem;
+    max-width: 400px; /* Limit the width of the form */
+    width: 90%; /* Make the form responsive */
   }
 
   input {
@@ -133,6 +138,7 @@ const FormContainer = styled.div`
       outline: none;
     }
   }
+
   button {
     background: #4e0eff;
     color: white;
@@ -162,6 +168,38 @@ const FormContainer = styled.div`
       &:hover {
         color: #997af0;
       }
+    }
+  }
+
+  /* Media Queries for Responsiveness */
+  @media (max-width: 1024px) {
+    form {
+      padding: 4rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    form {
+      padding: 3rem;
+      gap: 1.5rem;
+    }
+    .brand {
+      flex-direction: column; /* Stack brand elements */
+      img {
+        height: 4rem;
+      }
+      h1 {
+        font-size: 1.5rem; /* Adjust font size for smaller screens */
+      }
+    }
+    input {
+      font-size: 0.9rem; /* Adjust font size for inputs */
+    }
+    button {
+      font-size: 0.9rem; /* Adjust font size for button */
+    }
+    span {
+      font-size: 0.9rem; /* Adjust font size for span */
     }
   }
 `;
