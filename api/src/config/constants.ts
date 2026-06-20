@@ -34,3 +34,28 @@ export const PAGINATION = {
   DEFAULT_LIMIT: 30,
   MAX_LIMIT: 100,
 } as const;
+
+/** Upload constraints, shared by the multer middleware and the upload service. */
+export const UPLOAD = {
+  MAX_FILE_BYTES: 1 * 1024 * 1024, // 1 MB
+  MAX_FILE_LABEL: "1 MB",
+  ALLOWED_MIME_TYPES: [
+    // Images
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/webp",
+    // Documents
+    "application/pdf",
+    "text/plain",
+    "text/csv",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "application/vnd.ms-excel",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "application/vnd.ms-powerpoint",
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    // Archives
+    "application/zip",
+  ],
+} as const;

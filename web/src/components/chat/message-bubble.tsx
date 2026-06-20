@@ -47,6 +47,8 @@ export function MessageBubble({
   const deleted = Boolean(message.deletedAt);
   const [seenOpen, setSeenOpen] = useState(false);
   const seenCount = seenBy.length;
+  // Attachment with no caption/reply: let the media define its own shape — no bubble card.
+  const bareMedia = !deleted && message.attachments.length > 0 && !message.text && !message.replyTo;
 
   // Collapse reactions into emoji -> { count, mine }.
   const reactions = useMemo(() => {
@@ -80,10 +82,12 @@ export function MessageBubble({
           {/* Bubble */}
           <div
             className={cn(
-              "relative w-fit max-w-full animate-message-in overflow-hidden rounded-2xl px-3.5 py-2 text-sm leading-relaxed",
-              own
-                ? "bg-bubble-self text-bubble-self-foreground rounded-br-md"
-                : "bg-surface-2 text-foreground rounded-bl-md",
+              "relative w-fit max-w-full animate-message-in overflow-hidden rounded-2xl text-sm leading-relaxed",
+              !bareMedia && "px-3.5 py-2",
+              !bareMedia &&
+                (own
+                  ? "bg-bubble-self text-bubble-self-foreground rounded-br-md"
+                  : "bg-surface-2 text-foreground rounded-bl-md"),
             )}
           >
             {message.replyTo && !deleted && (
@@ -97,7 +101,7 @@ export function MessageBubble({
               <span className="italic opacity-70">This message was deleted</span>
             ) : (
               <div className="flex flex-col gap-1.5">
-                {message.attachments.length > 0 && <MessageAttachments attachments={message.attachments} own={own} />}
+                {message.attachments.length > 0 && <MessageAttachments attachments={message.attachments} />}
                 {message.text && <p className="whitespace-pre-wrap break-words">{message.text}</p>}
               </div>
             )}

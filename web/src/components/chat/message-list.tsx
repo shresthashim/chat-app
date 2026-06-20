@@ -41,6 +41,7 @@ export function MessageList({
   const nearBottom = useRef(true);
   const prevScrollHeight = useRef(0);
   const prevCount = useRef(0);
+  const initializedFor = useRef<string | null>(null);
 
   const isGroup = conversation.type === "group";
 
@@ -69,27 +70,46 @@ export function MessageList({
     );
   }
 
-  // Auto-scroll to bottom on new messages when the user is already near the bottom.
+  // Scroll management: jump to the bottom when a conversation opens, follow new
+  // messages when already near the bottom, and preserve position when paginating.
   useLayoutEffect(() => {
     const el = viewport.current;
-    if (!el) return;
-    const grew = messages.length > prevCount.current;
-    const prependedOlder = grew && messages.length - prevCount.current > 1 && !nearBottom.current;
+    if (!el || messages.length === 0) return;
 
-    if (prependedOlder && prevScrollHeight.current) {
-      // Preserve position when older messages are prepended.
+    // First render of this conversation — snap straight to the latest message.
+    if (initializedFor.current !== conversation.id) {
+      initializedFor.current = conversation.id;
+      nearBottom.current = true;
+      prevCount.current = messages.length;
+      prevScrollHeight.current = 0;
+      el.scrollTop = el.scrollHeight;
+      return;
+    }
+
+    const added = messages.length - prevCount.current;
+    prevCount.current = messages.length;
+    if (added <= 0) return;
+
+    // Older messages prepended (pagination): keep the viewport anchored.
+    if (added > 1 && !nearBottom.current && prevScrollHeight.current) {
       el.scrollTop = el.scrollHeight - prevScrollHeight.current;
+      prevScrollHeight.current = 0;
     } else if (nearBottom.current) {
       el.scrollTop = el.scrollHeight;
     }
-    prevCount.current = messages.length;
-  }, [messages.length]);
+  }, [conversation.id, messages.length]);
 
-  // Jump to bottom on first load of a conversation.
+  // Media loads asynchronously and grows the content height; re-pin to the bottom
+  // as images finish loading so opening a chat reliably lands on the newest message.
   useEffect(() => {
     const el = viewport.current;
-    if (el && !loading) el.scrollTop = el.scrollHeight;
-  }, [conversation.id, loading]);
+    if (!el) return;
+    const onMediaLoad = () => {
+      if (nearBottom.current) el.scrollTop = el.scrollHeight;
+    };
+    el.addEventListener("load", onMediaLoad, true);
+    return () => el.removeEventListener("load", onMediaLoad, true);
+  }, []);
 
   const onScroll = () => {
     const el = viewport.current;
@@ -101,16 +121,13 @@ export function MessageList({
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex flex-1 items-center justify-center">
-        <Spinner className="text-muted-foreground" />
-      </div>
-    );
-  }
-
   return (
     <div ref={viewport} onScroll={onScroll} className="flex-1 overflow-y-auto py-4">
+      {loading && messages.length === 0 && (
+        <div className="flex h-full items-center justify-center">
+          <Spinner className="text-muted-foreground" />
+        </div>
+      )}
       {loadingMore && (
         <div className="flex justify-center py-2">
           <Spinner className="text-muted-foreground" />
