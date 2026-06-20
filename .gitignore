@@ -1,31 +1,36 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
-
 node_modules/
+api/node_modules/
+web/node_modules/
 
-# testing
-/coverage
+# build output
+dist/
+api/dist/
+web/.next/
+web/out/
+web/build/
+*.tsbuildinfo
 
-# production
-/build
+# environment and secrets
+.env
+.env.*
+api/.env
+api/.env.*
+web/.env
+web/.env.*
 
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# keep examples
+!*.env.example
+!api/.env.example
+!web/.env.example
 
+# logs and local files
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-server/.env
+.DS_Store
+desktop.ini
 
-# Local Netlify folder
-.netlify
-.gitignore
-.env
+# hosting/tooling
+.vercel/

@@ -1,0 +1,228 @@
+@import "tailwindcss";
+
+/* next-themes toggles `class="dark"` on <html>; wire that to Tailwind's dark variant. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ─────────────────────────────────────────────────────────────
+   Design tokens — "Midnight Ink"
+   Semantic CSS variables, swapped per theme, mapped into Tailwind
+   utilities below via @theme inline.
+   ───────────────────────────────────────────────────────────── */
+:root {
+  --background: #eceef3;
+  --surface: #ffffff;
+  --surface-2: #f4f5f8;
+  --surface-3: #eaecf1;
+  --foreground: #16131f;
+  --muted-foreground: #6b6878;
+  --border: #e4e4ec;
+  --input: #e4e4ec;
+  --ring: #5a4bff;
+
+  --primary: #5a4bff;
+  --primary-foreground: #ffffff;
+
+  /* Sent message bubble */
+  --bubble-self: #5a4bff;
+  --bubble-self-foreground: #ffffff;
+
+  /* Presence / success — deliberately distinct from the brand accent */
+  --accent: #11b894;
+  --accent-foreground: #ffffff;
+
+  --danger: #e5484d;
+  --danger-foreground: #ffffff;
+
+  /* The single signature gradient — used only on send + brand mark */
+  --gradient-brand: linear-gradient(135deg, #5a4bff 0%, #ff5c7a 100%);
+
+  --shadow-panel: 0 1px 2px rgba(20, 18, 28, 0.04), 0 12px 40px -12px rgba(20, 18, 28, 0.12);
+  --shadow-pop: 0 8px 30px -8px rgba(20, 18, 28, 0.25);
+}
+
+.dark {
+  --background: #100e18;
+  --surface: #1a1826;
+  --surface-2: #221f31;
+  --surface-3: #2a2740;
+  --foreground: #ecebf5;
+  --muted-foreground: #9b97b0;
+  --border: #2a2740;
+  --input: #2a2740;
+  --ring: #8576ff;
+
+  --primary: #8576ff;
+  --primary-foreground: #100e18;
+
+  --bubble-self: #6354ff;
+  --bubble-self-foreground: #ffffff;
+
+  --accent: #25d3aa;
+  --accent-foreground: #06231b;
+
+  --danger: #ff6166;
+  --danger-foreground: #1a0606;
+
+  --gradient-brand: linear-gradient(135deg, #6f5cff 0%, #ff6c89 100%);
+
+  --shadow-panel: 0 1px 2px rgba(0, 0, 0, 0.3), 0 16px 50px -16px rgba(0, 0, 0, 0.6);
+  --shadow-pop: 0 10px 36px -8px rgba(0, 0, 0, 0.7);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-bubble-self: var(--bubble-self);
+  --color-bubble-self-foreground: var(--bubble-self-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bricolage), var(--font-inter), sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.75rem;
+
+  --animate-message-in: message-in 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-fade-in: fade-in 0.2s ease-out;
+  --animate-pop-in: pop-in 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-breathe: breathe 2.8s ease-in-out infinite;
+  --animate-typing: typing 1.2s ease-in-out infinite;
+}
+
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+@keyframes typing {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background-color: color-mix(in srgb, var(--primary) 28%, transparent);
+  }
+  /* Quiet, on-theme scrollbars */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--color-border);
+    border-radius: 9999px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-muted-foreground);
+  }
+}
+
+@layer utilities {
+  .gradient-brand {
+    background-image: var(--gradient-brand);
+  }
+  .gradient-text {
+    background-image: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* Subtle dotted texture for empty states — echoes a "blank page to fill". */
+  .dot-grid {
+    background-image: radial-gradient(
+      color-mix(in srgb, var(--muted-foreground) 22%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
