@@ -6,7 +6,9 @@ services:
     runtime: node
     rootDir: api
     plan: free
-    buildCommand: npm ci && npm run build
+    # NODE_ENV=production makes npm skip devDependencies, but tsc + @types live
+    # there, so the TypeScript build needs them explicitly via --include=dev.
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:

@@ -7,6 +7,7 @@ import { env } from "./config/env.js";
 import { logger } from "./utils/logger.js";
 import { apiLimiter } from "./middleware/rateLimit.js";
 import { notFoundHandler, errorHandler } from "./middleware/error.middleware.js";
+import * as health from "./modules/health/health.controller.js";
 import authRoutes from "./modules/auth/auth.routes.js";
 import userRoutes from "./modules/users/users.routes.js";
 import conversationRoutes from "./modules/conversations/conversations.routes.js";
@@ -62,9 +63,10 @@ export function createApp(): Express {
     }),
   );
 
-  app.get("/api/health", (_req, res) => {
-    res.json({ success: true, data: { status: "ok", uptime: process.uptime() } });
-  });
+  // Service banner + liveness probe (registered before the rate limiter so the
+  // health check is never throttled).
+  app.get("/", health.getServiceInfo);
+  app.get("/api/health", health.getHealth);
 
   app.use("/api", apiLimiter);
   app.use("/api/auth", authRoutes);
