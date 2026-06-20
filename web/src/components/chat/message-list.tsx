@@ -38,6 +38,7 @@ export function MessageList({
   onReact,
 }: Props) {
   const viewport = useRef<HTMLDivElement>(null);
+  const content = useRef<HTMLDivElement>(null);
   const nearBottom = useRef(true);
   const prevScrollHeight = useRef(0);
   const prevCount = useRef(0);
@@ -99,16 +100,18 @@ export function MessageList({
     }
   }, [conversation.id, messages.length]);
 
-  // Media loads asynchronously and grows the content height; re-pin to the bottom
-  // as images finish loading so opening a chat reliably lands on the newest message.
+  // The content height changes for reasons unrelated to message count — images
+  // finishing load, the typing indicator appearing/disappearing. Whenever that
+  // happens and the user is already near the bottom, keep them pinned to it.
   useEffect(() => {
     const el = viewport.current;
-    if (!el) return;
-    const onMediaLoad = () => {
+    const inner = content.current;
+    if (!el || !inner) return;
+    const observer = new ResizeObserver(() => {
       if (nearBottom.current) el.scrollTop = el.scrollHeight;
-    };
-    el.addEventListener("load", onMediaLoad, true);
-    return () => el.removeEventListener("load", onMediaLoad, true);
+    });
+    observer.observe(inner);
+    return () => observer.disconnect();
   }, []);
 
   const onScroll = () => {
@@ -122,52 +125,54 @@ export function MessageList({
   };
 
   return (
-    <div ref={viewport} onScroll={onScroll} className="flex-1 overflow-y-auto py-4">
+    <div ref={viewport} onScroll={onScroll} className="relative flex-1 overflow-y-auto">
       {loading && messages.length === 0 && (
-        <div className="flex h-full items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center">
           <Spinner className="text-muted-foreground" />
         </div>
       )}
-      {loadingMore && (
-        <div className="flex justify-center py-2">
-          <Spinner className="text-muted-foreground" />
-        </div>
-      )}
-      {!hasMore && messages.length > 0 && (
-        <p className="py-3 text-center text-xs text-muted-foreground">This is the beginning of your conversation.</p>
-      )}
+      <div ref={content} className="py-4">
+        {loadingMore && (
+          <div className="flex justify-center py-2">
+            <Spinner className="text-muted-foreground" />
+          </div>
+        )}
+        {!hasMore && messages.length > 0 && (
+          <p className="py-3 text-center text-xs text-muted-foreground">This is the beginning of your conversation.</p>
+        )}
 
-      {messages.map((m, i) => {
-        const prev = messages[i - 1];
-        const dayChanged =
-          !prev || new Date(prev.createdAt).toDateString() !== new Date(m.createdAt).toDateString();
-        const startsRun =
-          dayChanged ||
-          !prev ||
-          prev.sender.id !== m.sender.id ||
-          Boolean(prev.deletedAt) ||
-          new Date(m.createdAt).getTime() - new Date(prev.createdAt).getTime() > RUN_GAP_MS;
+        {messages.map((m, i) => {
+          const prev = messages[i - 1];
+          const dayChanged =
+            !prev || new Date(prev.createdAt).toDateString() !== new Date(m.createdAt).toDateString();
+          const startsRun =
+            dayChanged ||
+            !prev ||
+            prev.sender.id !== m.sender.id ||
+            Boolean(prev.deletedAt) ||
+            new Date(m.createdAt).getTime() - new Date(prev.createdAt).getTime() > RUN_GAP_MS;
 
-        return (
-          <Fragment key={m.id}>
-            {dayChanged && <DayDivider date={m.createdAt} />}
-            <MessageBubble
-              message={m}
-              currentUserId={currentUserId}
-              isGroup={isGroup}
-              startsRun={startsRun}
-              seen={!isGroup && m.sender.id === currentUserId && peerParticipant ? hasRead(peerParticipant, m) : undefined}
-              seenBy={isGroup && m.sender.id === currentUserId ? groupReaders(m) : undefined}
-              onReply={onReply}
-              onEdit={onEdit}
-              onDelete={onDelete}
-              onReact={onReact}
-            />
-          </Fragment>
-        );
-      })}
+          return (
+            <Fragment key={m.id}>
+              {dayChanged && <DayDivider date={m.createdAt} />}
+              <MessageBubble
+                message={m}
+                currentUserId={currentUserId}
+                isGroup={isGroup}
+                startsRun={startsRun}
+                seen={!isGroup && m.sender.id === currentUserId && peerParticipant ? hasRead(peerParticipant, m) : undefined}
+                seenBy={isGroup && m.sender.id === currentUserId ? groupReaders(m) : undefined}
+                onReply={onReply}
+                onEdit={onEdit}
+                onDelete={onDelete}
+                onReact={onReact}
+              />
+            </Fragment>
+          );
+        })}
 
-      <TypingIndicator conversationId={conversation.id} />
+        <TypingIndicator conversationId={conversation.id} />
+      </div>
     </div>
   );
 }

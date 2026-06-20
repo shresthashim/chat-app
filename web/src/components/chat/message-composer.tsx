@@ -235,7 +235,7 @@ export function MessageComposer({ conversationId, replyTo, editing, onCancelRepl
 
         {!editing && (
           <Button variant="ghost" size="icon" aria-label="Attach file" disabled={uploading} onClick={() => fileInput.current?.click()}>
-            {uploading ? <Spinner /> : <Paperclip className="h-5 w-5" />}
+            <Paperclip className="h-5 w-5" />
           </Button>
         )}
         <input
