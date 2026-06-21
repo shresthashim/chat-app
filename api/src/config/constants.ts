@@ -28,6 +28,15 @@ export const SOCKET_EVENTS = {
   CONVERSATION_NEW: "conversation:new",
   CONVERSATION_UPDATED: "conversation:updated",
   CONVERSATION_REMOVED: "conversation:removed",
+  // 1:1 calls (WebRTC signaling — server only relays, media is peer-to-peer)
+  CALL_OFFER: "call:offer", // caller → callee: SDP offer + media kind
+  CALL_ANSWER: "call:answer", // callee → caller: SDP answer
+  CALL_ICE: "call:ice", // both ways: a trickled ICE candidate
+  CALL_DECLINE: "call:decline", // callee → caller: rejected
+  CALL_CANCEL: "call:cancel", // caller → callee: hung up before answer
+  CALL_END: "call:end", // either → other: ended an established call
+  CALL_BUSY: "call:busy", // callee → caller: already on another call
+  CALL_UNAVAILABLE: "call:unavailable", // server → caller: callee is offline
 } as const;
 
 export const PAGINATION = {

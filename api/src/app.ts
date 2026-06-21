@@ -13,6 +13,7 @@ import userRoutes from "./modules/users/users.routes.js";
 import conversationRoutes from "./modules/conversations/conversations.routes.js";
 import messageSearchRoutes from "./modules/messages/search.routes.js";
 import uploadRoutes from "./modules/uploads/uploads.routes.js";
+import callRoutes from "./modules/calls/calls.routes.js";
 
 function formatRequestLog(req: { method?: string; url?: string }, statusCode: number, responseTime: number): string {
   return `${req.method ?? "REQUEST"} ${req.url ?? ""} ${statusCode} ${Math.round(responseTime)}ms`;
@@ -74,6 +75,7 @@ export function createApp(): Express {
   app.use("/api/conversations", conversationRoutes);
   app.use("/api/messages", messageSearchRoutes);
   app.use("/api/uploads", uploadRoutes);
+  app.use("/api/calls", callRoutes);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

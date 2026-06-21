@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Users, Info } from "lucide-react";
+import { ArrowLeft, Users, Info, Phone, Video } from "lucide-react";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { GroupInfoDialog } from "./group-info-dialog";
 import { useChatStore } from "@/store/chat";
 import { getConversationTitle, getConversationAvatar, getPeer, getGroupMemberSummary } from "@/lib/conversation";
 import { formatLastSeen } from "@/lib/utils";
+import * as call from "@/lib/call/call-manager";
 import type { Conversation } from "@/types";
 
 export function ChatHeader({ conversation, currentUserId }: { conversation: Conversation; currentUserId: string }) {
@@ -64,6 +65,27 @@ export function ChatHeader({ conversation, currentUserId }: { conversation: Conv
           </p>
         </div>
       </button>
+
+      {!isGroup && peer && (
+        <>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Voice call"
+            onClick={() => void call.startCall(conversation.id, peer, "audio")}
+          >
+            <Phone className="h-5 w-5" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Video call"
+            onClick={() => void call.startCall(conversation.id, peer, "video")}
+          >
+            <Video className="h-5 w-5" />
+          </Button>
+        </>
+      )}
 
       {isGroup && (
         <Button variant="ghost" size="icon" aria-label="Group details" onClick={() => setInfoOpen(true)}>

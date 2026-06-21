@@ -9,6 +9,7 @@ import { resolveUserFromToken } from "../middleware/auth.middleware.js";
 import { setIO, userRoom } from "./io.js";
 import { addConnection, removeConnection, getOnlineUserIds } from "./presence.js";
 import { registerTypingHandlers } from "./handlers/typing.js";
+import { registerCallHandlers } from "./handlers/call.js";
 import type { AuthUser } from "../types/index.js";
 
 export function initSocket(httpServer: HttpServer): Server {
@@ -41,6 +42,7 @@ export function initSocket(httpServer: HttpServer): Server {
     socket.emit(SOCKET_EVENTS.PRESENCE_SNAPSHOT, { online: [...getOnlineUserIds()] });
 
     registerTypingHandlers(io, socket, user);
+    registerCallHandlers(io, socket, user);
 
     socket.on(SOCKET_EVENTS.DISCONNECT, async () => {
       const becameOffline = removeConnection(user.id, socket.id);

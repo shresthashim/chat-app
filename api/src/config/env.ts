@@ -73,6 +73,22 @@ const envSchema = z
     CLOUDINARY_CLOUD_NAME: z.string().optional(),
     CLOUDINARY_API_KEY: z.string().optional(),
     CLOUDINARY_API_SECRET: z.string().optional(),
+
+    // Calls (WebRTC). STUN is always free/public; TURN is optional and only
+    // needed for the ~15-20% of networks that can't connect peer-to-peer.
+    // Provide TURN_URL + TURN_SECRET (coturn `use-auth-secret`) to enable relay.
+    STUN_URLS: z
+      .string()
+      .default("stun:stun.l.google.com:19302,stun:stun1.l.google.com:19302")
+      .transform((value) =>
+        value
+          .split(",")
+          .map((url) => url.trim())
+          .filter(Boolean),
+      ),
+    TURN_URL: z.string().optional(),
+    TURN_SECRET: z.string().optional(),
+    TURN_TTL_SECONDS: z.coerce.number().int().positive().default(3600),
   })
   .superRefine((env, ctx) => {
     if (env.COOKIE_SAMESITE === "none" && !env.COOKIE_SECURE) {
@@ -101,3 +117,6 @@ export const isDev = env.NODE_ENV === "development";
 export const isUploadsEnabled = Boolean(
   env.CLOUDINARY_CLOUD_NAME && env.CLOUDINARY_API_KEY && env.CLOUDINARY_API_SECRET,
 );
+
+/** Whether a TURN relay is configured (otherwise calls are STUN-only / P2P). */
+export const isTurnEnabled = Boolean(env.TURN_URL && env.TURN_SECRET);

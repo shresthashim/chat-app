@@ -13,4 +13,12 @@ export const SOCKET_EVENTS = {
   CONVERSATION_NEW: "conversation:new",
   CONVERSATION_UPDATED: "conversation:updated",
   CONVERSATION_REMOVED: "conversation:removed",
+  CALL_OFFER: "call:offer",
+  CALL_ANSWER: "call:answer",
+  CALL_ICE: "call:ice",
+  CALL_DECLINE: "call:decline",
+  CALL_CANCEL: "call:cancel",
+  CALL_END: "call:end",
+  CALL_BUSY: "call:busy",
+  CALL_UNAVAILABLE: "call:unavailable",
 } as const;
