@@ -101,7 +101,7 @@ function CallScreen() {
       <div
         className={cn(
           "relative w-full overflow-hidden rounded-3xl border border-white/10 text-white shadow-[var(--shadow-pop)] animate-pop-in",
-          mainVideoStream ? "max-w-3xl" : "max-w-sm",
+          mainVideoStream ? "max-w-4xl" : "max-w-sm",
         )}
         style={{ background: CARD_BG }}
       >
@@ -109,7 +109,7 @@ function CallScreen() {
         {!isVideo && remoteStream && <AudioSink stream={remoteStream} />}
 
         {mainVideoStream ? (
-          <div className="relative aspect-[3/4] w-full bg-black sm:aspect-video">
+          <div className="relative aspect-[3/4] w-full bg-black sm:aspect-auto sm:h-[78vh] sm:max-h-[720px]">
             <VideoTile
               stream={mainVideoStream}
               muted={!remoteVideoOn}
